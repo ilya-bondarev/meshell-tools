@@ -1,0 +1,7 @@
+{
+  "version": "1.0.0",
+  "author": "MeShell contributors",
+  "license": "MIT-0",
+  "min_app_version": "0.9.4",
+  "requirements": ["Android 10+ ARM64", "MeShell ADB-shell broker"]
+}

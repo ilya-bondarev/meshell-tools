@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MeShell module definition",
+  "type": "object",
+  "x-maxJsonCharacters": 128000,
+  "additionalProperties": false,
+  "required": ["id", "title", "actions"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^[a-z0-9_-]{1,40}$"},
+    "title": {"type": "string", "minLength": 1},
+    "description": {"type": "string"},
+    "actions": {
+      "type": "array", "minItems": 1, "maxItems": 24, "x-uniqueBy": "id",
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["id", "command"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z0-9_-]{1,40}$"},
+          "label": {"type": "string"},
+          "command": {"type": "string", "minLength": 1},
+          "cwd": {"type": "string", "pattern": "^/[^\\u0000]*$", "x-local": true},
+          "timeout_ms": {"type": "integer", "minimum": 1000, "maximum": 900000},
+          "env_secrets": {
+            "type": "object", "x-portableAliases": true,
+            "propertyNames": {"pattern": "^[A-Za-z_][A-Za-z0-9_]*$"},
+            "additionalProperties": {"type": "string", "minLength": 1}
+          }
+        }
+      }
+    }
+  }
+}

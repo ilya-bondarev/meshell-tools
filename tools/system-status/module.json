@@ -1,0 +1,19 @@
+{
+  "id": "system-status",
+  "title": "System status",
+  "description": "Android version, model and available disk space",
+  "actions": [
+    {
+      "id": "android",
+      "label": "Android and model",
+      "command": "printf 'Android '; getprop ro.build.version.release; printf 'Model '; getprop ro.product.model",
+      "timeout_ms": 10000
+    },
+    {
+      "id": "disk",
+      "label": "Disk space",
+      "command": "df -h /data /sdcard",
+      "timeout_ms": 10000
+    }
+  ]
+}

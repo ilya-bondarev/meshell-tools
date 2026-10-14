@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MeShell tools catalogue metadata",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "author", "license", "min_app_version", "requirements"],
+  "properties": {
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "author": {"type": "string", "minLength": 1, "maxLength": 100},
+    "license": {"const": "MIT-0"},
+    "min_app_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "requirements": {"type": "array", "maxItems": 20, "uniqueItems": true, "items": {"type": "string", "minLength": 1, "maxLength": 200}}
+  }
+}

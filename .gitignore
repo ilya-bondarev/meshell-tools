@@ -1,0 +1,14 @@
+/.venv/
+/dist/
+__pycache__/
+*.pyc
+*.zip
+*.bundle
+*.log
+*.db
+*.p12
+*.jks
+*.key
+*.pem
+.env
+.env.*
