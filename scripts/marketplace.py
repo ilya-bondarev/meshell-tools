@@ -614,6 +614,7 @@ a{{color:var(--mint)}} h1{{margin:0 0 4px;font-size:28px}} .lead{{color:var(--so
 .actions a{{display:inline-block;margin:0 8px 8px 0;padding:8px 14px;border-radius:20px;border:1px solid var(--line);text-decoration:none}}
 .actions a.primary{{background:var(--mint);color:var(--bg);border-color:var(--mint)}}
 article{{display:flex;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin:12px 0}}
+article:target{{border-color:var(--mint);box-shadow:0 0 0 2px var(--mint)}} html{{scroll-padding-top:16px}}
 .icon{{font-size:28px;line-height:1}} h2{{margin:0;font-size:18px}} h2 small{{color:var(--soft);font-weight:400;font-size:13px}}
 p{{margin:4px 0}} .by,.meta{{color:var(--soft);font-size:13px}}
 .chip{{display:inline-block;font-size:12px;padding:1px 8px;border-radius:10px;border:1px solid var(--line);margin:0 4px 4px 0;color:var(--soft)}}
