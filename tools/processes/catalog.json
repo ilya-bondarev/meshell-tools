@@ -6,13 +6,17 @@
   "min_app_version": "0.10.0",
   "category": "developer",
   "icon": "chart",
-  "requirements": [
-    "MeShell ADB-shell broker"
-  ],
+  "requirements": [],
   "translations": {
     "ru": {
       "title": "Процессы",
-      "description": "Самые активные процессы по CPU и памяти"
+      "description": "Самые активные процессы по CPU и памяти",
+      "readme": "Какие процессы сейчас больше всего нагружают процессор и занимают память, и снимок `top` со сводкой по CPU. Только чтение: ничего не останавливается.",
+      "actions": {
+        "cpu": "Топ по CPU",
+        "memory": "Топ по памяти",
+        "summary": "Сводка CPU"
+      }
     }
   }
 }

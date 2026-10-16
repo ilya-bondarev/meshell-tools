@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "MeShell",
   "github": "ilya-bondarev",
   "license": "MIT-0",
@@ -12,7 +12,15 @@
   "translations": {
     "ru": {
       "title": "Карточка устройства",
-      "description": "Сводка fastfetch о телефоне: железо, система, память, хранилище"
+      "description": "Сводка fastfetch о телефоне: железо, система, память, хранилище",
+      "readme": "Сводка [fastfetch](https://github.com/fastfetch-cli/fastfetch) о телефоне, с логотипом Android или без. Перед первым запуском MeShell установит пакет `fastfetch` из репозитория Termux.\n\nВ карточке модель устройства и загрузка ресурсов — проверьте её, прежде чем делиться.",
+      "actions": {
+        "card": "Карточка устройства",
+        "logo": "Карточка с логотипом"
+      },
+      "requirements": [
+        "fastfetch из репозитория Termux (ставится при первом запуске)"
+      ]
     }
   }
 }

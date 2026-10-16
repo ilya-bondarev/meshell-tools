@@ -196,6 +196,11 @@ def tool_entry(root, folder, module_schema, metadata_schema, repository):
     rejected = forbidden(definition)
     if rejected:
         raise ValueError(f"{name}: " + "; ".join(rejected))
+    actions = {action["id"] for action in definition["actions"]}
+    for language, texts in metadata.get("translations", {}).items():
+        unknown = sorted(set(texts.get("actions", {})) - actions)
+        if unknown:
+            raise ValueError(f"{name}: translations.{language}.actions names unknown actions: " + ", ".join(unknown))
     if version_key(metadata["min_app_version"]) < version_key(MIN_APP_VERSION):
         raise ValueError(f"{name}: min_app_version must be {MIN_APP_VERSION} or later")
     readme = (folder / "README.md").read_text(encoding="utf-8")

@@ -18,7 +18,8 @@ Test every action on your own phone before publishing. The catalogue does not ru
 ## Pull requests
 
 - Create `tools/<id>/` with `module.json` (a MeShell export), `catalog.json`, `README.md`, `LICENSE` (a copy of the root license) and `CHANGELOG.md`. Use `tools/battery` as the example.
-- `catalog.json` `github` is your GitHub login; `author` is the name shown in the app. `min_app_version` is the oldest MeShell your module needs, at least 0.10.0.
+- `catalog.json` `github` is your GitHub login; `author` is the name shown in the app. `min_app_version` is the oldest MeShell your module needs, at least 0.10.0. `requirements` lists what the module needs beyond MeShell, such as a service it calls.
+- Optional `translations` show the module in the user's language: `{"ru": {"title", "description", "readme", "requirements", "actions": {"<action-id>": "label"}}}`. An update keeps a translation only while its source text is unchanged.
 - Change only your own tool directories. Run `python scripts/test_catalog.py` and `python scripts/catalog.py`.
 
 ## Ratings

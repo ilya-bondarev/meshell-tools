@@ -355,10 +355,16 @@ def prepare(root, issue, data, tools, author_name, maintainer):
         "category": metadata.get("category"),
         "requirements": metadata.get("requirements", keep.get("requirements", ["MeShell ADB-shell broker"])),
     }
-    for key in ("icon", "translations"):
-        if key in metadata or key in keep:
-            entry_meta[key] = metadata.get(key, keep.get(key))
     readme = data.get("readme") if isinstance(data.get("readme"), str) else ""
+    if "icon" in metadata or "icon" in keep:
+        entry_meta["icon"] = metadata.get("icon", keep.get("icon"))
+    if "translations" in metadata:
+        entry_meta["translations"] = metadata["translations"]
+    elif keep.get("translations"):
+        old_readme = catalog.readme_text((previous / "README.md").read_text(encoding="utf-8"))
+        translations = carried(keep["translations"], catalog.load(previous / "module.json"), module, old_readme, readme.strip())
+        if translations:
+            entry_meta["translations"] = translations
     title = module.get("title") if isinstance(module.get("title"), str) else tool
     changes = data.get("changes") if isinstance(data.get("changes"), str) and data["changes"].strip() else \
         (f"Submitted in #{issue['number']}." if existing else "Initial version.")
@@ -389,6 +395,27 @@ def prepare(root, issue, data, tools, author_name, maintainer):
                 problems.append(describe(error))
     return {"id": tool, "files": {f"tools/{tool}/{name}": text for name, text in files.items()}, "entry": entry,
             "problems": problems, "update": bool(existing)}
+
+
+def carried(translations, old_module, module, old_readme, readme):
+    """Translations an update keeps: only those whose source text is unchanged."""
+    def labels(value):
+        actions = value.get("actions") if isinstance(value.get("actions"), list) else []
+        return {action.get("id"): action.get("label") for action in actions if isinstance(action, dict)}
+    before, after = labels(old_module), labels(module)
+    result = {}
+    for language, texts in translations.items():
+        kept = {key: texts[key] for key in ("title", "description") if key in texts and old_module.get(key) == module.get(key)}
+        if "readme" in texts and old_readme == readme:
+            kept["readme"] = texts["readme"]
+        if "requirements" in texts:
+            kept["requirements"] = texts["requirements"]
+        actions = {key: text for key, text in texts.get("actions", {}).items() if key in after and before.get(key) == after[key]}
+        if actions:
+            kept["actions"] = actions
+        if kept:
+            result[language] = kept
+    return result
 
 
 def describe(error):

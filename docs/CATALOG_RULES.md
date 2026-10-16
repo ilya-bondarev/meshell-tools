@@ -6,6 +6,8 @@ The app-owned vendored contract contains module fields, permissions and executio
 
 ## Tool directories
 
+Translations replace the title, description, README, requirements and action labels for one UI language; translated action IDs must exist. An update from an issue keeps the previous translations only for texts it did not change.
+
 Tool directories contain only definition, metadata, README, license and changelog. Reject symlinks, oversized files, unknown JSON properties, duplicate JSON keys/action identities, directory/ID mismatches, app built-in IDs, nonportable definitions, undeclared permissions, `min_app_version` below 0.10.0 and a changelog without a section for the version. The catalogue policy (`FORBIDDEN`) rejects piping text into a shell or interpreter, `eval`, sourcing generated code, running downloaded code, decoding hidden content, making files executable and credential-like strings. Patterns detect common forms, not every one.
 
 ## Index and releases

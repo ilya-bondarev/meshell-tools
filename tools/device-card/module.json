@@ -13,13 +13,13 @@
       "id": "card",
       "label": "Device card",
       "timeout_ms": 30000,
-      "command": "fastfetch --pipe --logo none"
+      "command": "fastfetch --pipe --logo none --structure Title:Separator:OS:Host:Kernel:Uptime:Display:CPU:GPU:Memory:Swap:Disk:Battery"
     },
     {
       "id": "logo",
       "label": "Card with logo",
       "timeout_ms": 30000,
-      "command": "fastfetch --pipe --logo android"
+      "command": "fastfetch --pipe --logo android --structure Title:Separator:OS:Host:Uptime:CPU:GPU:Memory:Battery"
     }
   ]
 }

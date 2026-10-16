@@ -20,7 +20,14 @@
         "type": "object", "additionalProperties": false, "minProperties": 1,
         "properties": {
           "title": {"type": "string", "minLength": 1, "maxLength": 80},
-          "description": {"type": "string", "minLength": 1, "maxLength": 300}
+          "description": {"type": "string", "minLength": 1, "maxLength": 300},
+          "readme": {"type": "string", "minLength": 1, "maxLength": 4000},
+          "requirements": {"type": "array", "maxItems": 20, "uniqueItems": true, "items": {"type": "string", "minLength": 1, "maxLength": 200}},
+          "actions": {
+            "type": "object", "maxProperties": 24,
+            "propertyNames": {"pattern": "^[a-z0-9_-]{1,40}$"},
+            "additionalProperties": {"type": "string", "minLength": 1, "maxLength": 80}
+          }
         }
       }
     }

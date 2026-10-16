@@ -131,6 +131,13 @@ class SubmissionTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             parse_submission("no json here")
 
+    def test_update_keeps_only_current_translations(self):
+        old = {"title": "Battery", "description": "Old", "actions": [{"id": "status", "label": "Status"}, {"id": "gone", "label": "Gone"}]}
+        new = {"title": "Battery", "description": "New", "actions": [{"id": "status", "label": "Status"}, {"id": "added", "label": "Added"}]}
+        texts = {"ru": {"title": "Батарея", "description": "Старое", "readme": "Текст", "actions": {"status": "Состояние", "gone": "Нет"}}}
+        self.assertEqual(marketplace.carried(texts, old, new, "Same", "Same"), {"ru": {"title": "Батарея", "readme": "Текст", "actions": {"status": "Состояние"}}})
+        self.assertEqual(marketplace.carried(texts, old, {"title": "Other", "actions": []}, "Same", "Changed"), {})
+
     def test_triage_and_approval(self):
         gh = FakeGitHub({"owner": "admin"})
         submitted = issue(9, "maker", "[submit] hello", submission_body(HELLO), labels=())
