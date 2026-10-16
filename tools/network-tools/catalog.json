@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0",
+  "author": "MeShell",
+  "github": "ilya-bondarev",
+  "license": "MIT-0",
+  "min_app_version": "0.10.0",
+  "category": "network",
+  "icon": "wifi",
+  "requirements": [
+    "curl (MeShell installs it on first start)"
+  ],
+  "translations": {
+    "ru": {
+      "title": "Сетевые инструменты",
+      "description": "Интерфейсы, внешний IP, пинг, проверка интернета и тест скорости"
+    }
+  }
+}

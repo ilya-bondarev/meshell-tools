@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0",
+  "author": "MeShell",
+  "github": "ilya-bondarev",
+  "license": "MIT-0",
+  "min_app_version": "0.10.0",
+  "category": "fun",
+  "icon": "phone",
+  "requirements": [
+    "fastfetch from the Termux repository (installed on first run)"
+  ],
+  "translations": {
+    "ru": {
+      "title": "Карточка устройства",
+      "description": "Сводка fastfetch о телефоне: железо, система, память, хранилище"
+    }
+  }
+}

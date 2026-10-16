@@ -1,0 +1,28 @@
+name: Marketplace
+on:
+  issues:
+    types: [opened, edited, reopened, labeled]
+permissions: {}
+concurrency:
+  group: issue-${{ github.event.issue.number }}
+  cancel-in-progress: false
+jobs:
+  triage:
+    # Issue text is data for scripts/marketplace.py; never interpolate it into a run step.
+    if: github.event.issue.pull_request == null && startsWith(github.event.issue.title, '[')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      issues: write
+      actions: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Install
+        run: python3 -m pip install -r requirements.txt
+      - name: Triage
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/marketplace.py triage --event "$GITHUB_EVENT_PATH"

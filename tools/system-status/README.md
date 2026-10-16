@@ -1,5 +1,5 @@
 # System status
 
-Read-only Android version, device model and free-space commands. Uses only built-in Android shell utilities; no network, credentials or additional binaries.
+Read-only overview of the phone: Android version and patch level, device model, kernel, uptime and load, memory, free space on the data partition and sensor temperatures.
 
-Download `module.json`, inspect both commands, then import it in MeShell. Requires MeShell 0.9.4+ and a running ADB-shell broker. Results may reveal device identifiers or storage layout; review them before sharing.
+Uses only Android shell utilities. No network, no shared files, no settings changes. The output includes the device model; review it before sharing a screenshot.

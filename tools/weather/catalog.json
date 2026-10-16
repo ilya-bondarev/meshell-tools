@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "author": "MeShell",
+  "github": "ilya-bondarev",
+  "license": "MIT-0",
+  "min_app_version": "0.10.0",
+  "category": "productivity",
+  "icon": "sun",
+  "requirements": [
+    "curl (MeShell installs it on first start)",
+    "wttr.in"
+  ],
+  "translations": {
+    "ru": {
+      "title": "Погода",
+      "description": "Погода сейчас, подробности на сегодня, три дня и фаза Луны от wttr.in"
+    }
+  }
+}

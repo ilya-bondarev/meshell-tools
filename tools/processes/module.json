@@ -1,0 +1,25 @@
+{
+  "id": "processes",
+  "title": "Processes",
+  "description": "The busiest processes by CPU and memory",
+  "actions": [
+    {
+      "id": "cpu",
+      "label": "Top CPU",
+      "timeout_ms": 15000,
+      "command": "ps -A -o PID,PCPU,RSS,NAME -k -pcpu | head -n 16"
+    },
+    {
+      "id": "memory",
+      "label": "Top memory",
+      "timeout_ms": 15000,
+      "command": "ps -A -o PID,RSS,NAME -k -rss | head -n 16 | awk 'NR==1{printf \"%6s %8s  %s\\n\", \"PID\", \"MEMORY\", \"NAME\"; next} {printf \"%6s %6.0f MB  %s\\n\", $1, $2/1024, $3}'"
+    },
+    {
+      "id": "summary",
+      "label": "CPU summary",
+      "timeout_ms": 15000,
+      "command": "top -b -n 1 -m 10"
+    }
+  ]
+}

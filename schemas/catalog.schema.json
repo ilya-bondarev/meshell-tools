@@ -3,12 +3,26 @@
   "title": "MeShell tools catalogue metadata",
   "type": "object",
   "additionalProperties": false,
-  "required": ["version", "author", "license", "min_app_version", "requirements"],
+  "required": ["version", "author", "github", "license", "min_app_version", "category", "requirements"],
   "properties": {
-    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "version": {"type": "string", "pattern": "^[0-9]{1,6}\\.[0-9]{1,6}\\.[0-9]{1,6}$"},
     "author": {"type": "string", "minLength": 1, "maxLength": 100},
+    "github": {"type": "string", "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9]|-(?=[A-Za-z0-9])){0,38}$"},
     "license": {"const": "MIT-0"},
-    "min_app_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
-    "requirements": {"type": "array", "maxItems": 20, "uniqueItems": true, "items": {"type": "string", "minLength": 1, "maxLength": 200}}
+    "min_app_version": {"type": "string", "pattern": "^[0-9]{1,6}\\.[0-9]{1,6}\\.[0-9]{1,6}$"},
+    "category": {"enum": ["system", "network", "files", "developer", "productivity", "media", "fun"]},
+    "icon": {"enum": ["terminal", "cpu", "wifi", "folder", "notes", "chart", "image", "play", "key", "branch", "phone", "sensor", "star", "fox", "search", "package", "battery", "sun", "screen", "shield", "grid"]},
+    "requirements": {"type": "array", "maxItems": 20, "uniqueItems": true, "items": {"type": "string", "minLength": 1, "maxLength": 200}},
+    "translations": {
+      "type": "object", "maxProperties": 20,
+      "propertyNames": {"pattern": "^[a-z]{2}$"},
+      "additionalProperties": {
+        "type": "object", "additionalProperties": false, "minProperties": 1,
+        "properties": {
+          "title": {"type": "string", "minLength": 1, "maxLength": 80},
+          "description": {"type": "string", "minLength": 1, "maxLength": 300}
+        }
+      }
+    }
   }
 }

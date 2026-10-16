@@ -1,0 +1,25 @@
+{
+  "id": "device-card",
+  "title": "Device card",
+  "description": "A fastfetch summary of your phone: hardware, OS, memory, storage and more",
+  "permissions": [
+    "packages"
+  ],
+  "packages": [
+    "fastfetch"
+  ],
+  "actions": [
+    {
+      "id": "card",
+      "label": "Device card",
+      "timeout_ms": 30000,
+      "command": "fastfetch --pipe --logo none"
+    },
+    {
+      "id": "logo",
+      "label": "Card with logo",
+      "timeout_ms": 30000,
+      "command": "fastfetch --pipe --logo android"
+    }
+  ]
+}

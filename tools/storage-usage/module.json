@@ -1,0 +1,34 @@
+{
+  "id": "storage-usage",
+  "title": "Storage usage",
+  "description": "Largest folders and files, media and recent downloads in shared storage",
+  "permissions": [
+    "storage"
+  ],
+  "actions": [
+    {
+      "id": "folders",
+      "label": "Largest folders",
+      "timeout_ms": 60000,
+      "command": "du -sk /sdcard/* 2>/dev/null | sort -rn | head -n 12 | awk '{s=$1; u=\"K\"; if(s>=1048576){s=s/1048576;u=\"G\"} else if(s>=1024){s=s/1024;u=\"M\"} n=$2; sub(/^\\/sdcard\\//,\"\",n); printf \"%7.1f %s  %s\\n\", s, u, n}'"
+    },
+    {
+      "id": "media",
+      "label": "Photos, videos, music",
+      "timeout_ms": 60000,
+      "command": "du -sk /sdcard/DCIM /sdcard/Pictures /sdcard/Movies /sdcard/Music /sdcard/Download 2>/dev/null | sort -rn | awk '{s=$1; u=\"K\"; if(s>=1048576){s=s/1048576;u=\"G\"} else if(s>=1024){s=s/1024;u=\"M\"} n=$2; sub(/^\\/sdcard\\//,\"\",n); printf \"%7.1f %s  %s\\n\", s, u, n}'"
+    },
+    {
+      "id": "large-files",
+      "label": "Files over 50 MB",
+      "timeout_ms": 120000,
+      "command": "find /sdcard/ -type f -size +50M -exec du -k {} + 2>/dev/null | sort -rn | head -n 15 | awk '{s=$1/1024; $1=\"\"; sub(/^ \\/sdcard\\//,\"\"); printf \"%7.0f MB  %s\\n\", s, $0}'"
+    },
+    {
+      "id": "downloads",
+      "label": "Recent downloads",
+      "timeout_ms": 15000,
+      "command": "ls -lt /sdcard/Download 2>/dev/null | tail -n +2 | head -n 15 | awk '{s=$5; u=\"B\"; if(s>=1073741824){s=s/1073741824;u=\"G\"} else if(s>=1048576){s=s/1048576;u=\"M\"} else if(s>=1024){s=s/1024;u=\"K\"} n=$0; sub(/^([^ ]+ +){7}/,\"\",n); printf \"%s  %6.1f %s  %s\\n\", $6, s, u, n}'"
+    }
+  ]
+}

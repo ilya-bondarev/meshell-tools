@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0",
+  "author": "MeShell",
+  "github": "ilya-bondarev",
+  "license": "MIT-0",
+  "min_app_version": "0.10.0",
+  "category": "media",
+  "icon": "image",
+  "requirements": [
+    "MeShell ADB-shell broker"
+  ],
+  "translations": {
+    "ru": {
+      "title": "Снимок экрана",
+      "description": "Скриншот или 15-секундная запись экрана в общую память"
+    }
+  }
+}

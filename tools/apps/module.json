@@ -1,0 +1,28 @@
+{
+  "id": "apps",
+  "title": "Apps",
+  "description": "Installed apps, app counts and clearing app caches",
+  "permissions": [
+    "system"
+  ],
+  "actions": [
+    {
+      "id": "list",
+      "label": "Installed apps",
+      "timeout_ms": 20000,
+      "command": "pm list packages -3 --user 0 | sed 's/^package://' | sort"
+    },
+    {
+      "id": "count",
+      "label": "App counts",
+      "timeout_ms": 20000,
+      "command": "printf 'Installed  %s\\nSystem     %s\\nDisabled   %s\\n' \"$(pm list packages -3 --user 0 | wc -l)\" \"$(pm list packages -s --user 0 | wc -l)\" \"$(pm list packages -d --user 0 | wc -l)\""
+    },
+    {
+      "id": "trim",
+      "label": "Clear app caches",
+      "timeout_ms": 60000,
+      "command": "before=$(df -k /data | awk 'NR==2{print $4}'); pm trim-caches 999G && after=$(df -k /data | awk 'NR==2{print $4}') && awk -v a=\"$before\" -v b=\"$after\" 'BEGIN{printf \"Caches cleared, %.0f MB freed\\n\", (b-a)/1024}'"
+    }
+  ]
+}

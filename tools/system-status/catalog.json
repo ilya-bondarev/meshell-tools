@@ -1,7 +1,18 @@
 {
-  "version": "1.0.0",
-  "author": "MeShell contributors",
+  "version": "1.1.0",
+  "author": "MeShell",
+  "github": "ilya-bondarev",
   "license": "MIT-0",
-  "min_app_version": "0.9.4",
-  "requirements": ["Android 10+ ARM64", "MeShell ADB-shell broker"]
+  "min_app_version": "0.10.0",
+  "category": "system",
+  "icon": "cpu",
+  "requirements": [
+    "MeShell ADB-shell broker"
+  ],
+  "translations": {
+    "ru": {
+      "title": "Состояние системы",
+      "description": "Версия Android, модель, время работы, память, место и температуры"
+    }
+  }
 }

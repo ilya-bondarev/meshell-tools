@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0",
+  "author": "MeShell",
+  "github": "ilya-bondarev",
+  "license": "MIT-0",
+  "min_app_version": "0.10.0",
+  "category": "fun",
+  "icon": "star",
+  "requirements": [
+    "MeShell ADB-shell broker"
+  ],
+  "translations": {
+    "ru": {
+      "title": "Кубик и монетка",
+      "description": "Монетка, кубики, магический шар и надёжный пароль"
+    }
+  }
+}

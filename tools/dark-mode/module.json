@@ -1,0 +1,34 @@
+{
+  "id": "dark-mode",
+  "title": "Dark mode",
+  "description": "Switch the system theme to dark, light or automatic in one tap",
+  "permissions": [
+    "system"
+  ],
+  "actions": [
+    {
+      "id": "status",
+      "label": "Current mode",
+      "timeout_ms": 10000,
+      "command": "cmd uimode night"
+    },
+    {
+      "id": "dark",
+      "label": "Dark",
+      "timeout_ms": 10000,
+      "command": "cmd uimode night yes && cmd uimode night"
+    },
+    {
+      "id": "light",
+      "label": "Light",
+      "timeout_ms": 10000,
+      "command": "cmd uimode night no && cmd uimode night"
+    },
+    {
+      "id": "auto",
+      "label": "Automatic",
+      "timeout_ms": 10000,
+      "command": "cmd uimode night auto && cmd uimode night"
+    }
+  ]
+}

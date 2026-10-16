@@ -1,0 +1,40 @@
+{
+  "id": "network-tools",
+  "title": "Network tools",
+  "description": "Interfaces, public IP, ping, connectivity check and a speed test",
+  "permissions": [
+    "network"
+  ],
+  "actions": [
+    {
+      "id": "interfaces",
+      "label": "Interfaces",
+      "timeout_ms": 10000,
+      "command": "ip -br addr show up | awk '$1 !~ /^(lo|dummy[0-9]*|ifb[0-9]*)$/'"
+    },
+    {
+      "id": "public-ip",
+      "label": "Public IP",
+      "timeout_ms": 15000,
+      "command": "curl -fsS --max-time 10 https://api.ipify.org; echo"
+    },
+    {
+      "id": "check",
+      "label": "Internet check",
+      "timeout_ms": 15000,
+      "command": "curl -o /dev/null -sS --max-time 10 -w '%{http_code} %{time_total} %{remote_ip}\\n' https://www.gstatic.com/generate_204 | awk '{printf \"HTTP %s in %.2f s via %s\\n\", $1, $2, $3}'"
+    },
+    {
+      "id": "ping",
+      "label": "Ping 1.1.1.1",
+      "timeout_ms": 20000,
+      "command": "ping -c 4 -W 2 1.1.1.1"
+    },
+    {
+      "id": "speed",
+      "label": "Speed test (25 MB)",
+      "timeout_ms": 90000,
+      "command": "curl -o /dev/null -sS --max-time 60 -w '%{speed_download} %{size_download} %{time_total}\\n' 'https://speed.cloudflare.com/__down?bytes=25000000' | awk '{printf \"Download %.1f Mbit/s (%.0f MB in %.1f s)\\n\", $1*8/1000000, $2/1000000, $3}'"
+    }
+  ]
+}

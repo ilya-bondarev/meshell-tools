@@ -1,19 +1,37 @@
 {
   "id": "system-status",
   "title": "System status",
-  "description": "Android version, model and available disk space",
+  "description": "Android version, device model, uptime, memory and free space",
   "actions": [
     {
       "id": "android",
       "label": "Android and model",
-      "command": "printf 'Android '; getprop ro.build.version.release; printf 'Model '; getprop ro.product.model",
-      "timeout_ms": 10000
+      "timeout_ms": 10000,
+      "command": "printf 'Android  %s (API %s)\\nDevice   %s %s\\nPatch    %s\\nKernel   %s\\n' \"$(getprop ro.build.version.release)\" \"$(getprop ro.build.version.sdk)\" \"$(getprop ro.product.manufacturer)\" \"$(getprop ro.product.model)\" \"$(getprop ro.build.version.security_patch)\" \"$(uname -r)\""
+    },
+    {
+      "id": "uptime",
+      "label": "Uptime and load",
+      "timeout_ms": 10000,
+      "command": "uptime"
+    },
+    {
+      "id": "memory",
+      "label": "Memory",
+      "timeout_ms": 10000,
+      "command": "awk '/^MemTotal:/{t=$2} /^MemAvailable:/{a=$2} /^SwapTotal:/{st=$2} /^SwapFree:/{sf=$2} END{printf \"Memory  %.1f of %.1f GB free\\n\", a/1048576, t/1048576; if(st>0) printf \"Swap    %.1f of %.1f GB free\\n\", sf/1048576, st/1048576}' /proc/meminfo"
     },
     {
       "id": "disk",
-      "label": "Disk space",
-      "command": "df -h /data /sdcard",
-      "timeout_ms": 10000
+      "label": "Free space",
+      "timeout_ms": 10000,
+      "command": "df -h /data"
+    },
+    {
+      "id": "thermal",
+      "label": "Temperatures",
+      "timeout_ms": 10000,
+      "command": "dumpsys thermalservice | awk -F'[=,}]' '/Current temperatures from HAL/{f=1; next} f && /Temperature[{]/{ if($2>0) printf \"%-18s %5.1f °C\\n\", $6, $2; next } f{exit}'"
     }
   ]
 }

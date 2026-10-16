@@ -1,0 +1,34 @@
+{
+  "id": "weather",
+  "title": "Weather",
+  "description": "Current weather, today's details and the moon phase from wttr.in",
+  "permissions": [
+    "network"
+  ],
+  "actions": [
+    {
+      "id": "now",
+      "label": "Weather now",
+      "timeout_ms": 20000,
+      "command": "curl -fsS --max-time 15 'https://wttr.in/?format=%l:+%c+%t+(feels+%f),+%w,+%h&m'; echo"
+    },
+    {
+      "id": "today",
+      "label": "Today in detail",
+      "timeout_ms": 20000,
+      "command": "curl -fsS --max-time 15 'https://wttr.in/?format=%l\\n%c+%C+%t+(feels+%f)\\nWind+%w\\nHumidity+%h\\nPrecipitation+%p\\nPressure+%P\\nUV+index+%u\\nSunrise+%S\\nSunset+%s\\n&m'"
+    },
+    {
+      "id": "forecast",
+      "label": "Three days",
+      "timeout_ms": 25000,
+      "command": "curl -fsS --max-time 20 'https://wttr.in/?format=j2&m' | awk -F'\"' '/\"date\":/{d=$4} /\"maxtempC\":/{hi=$4} /\"mintempC\":/{lo=$4} /\"sunHour\":/{sun=$4} /\"uvIndex\":/ && d!=\"\"{printf \"%s  %s..%s °C  sun %s h  UV %s\\n\", d, lo, hi, sun, $4}'"
+    },
+    {
+      "id": "moon",
+      "label": "Moon phase",
+      "timeout_ms": 20000,
+      "command": "curl -fsS --max-time 15 'https://wttr.in/?format=%m+day+%M'; echo"
+    }
+  ]
+}

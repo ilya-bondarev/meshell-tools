@@ -1,0 +1,37 @@
+{
+  "id": "dice",
+  "title": "Dice and coin",
+  "description": "Flip a coin, roll dice, ask the magic ball or make a strong password",
+  "actions": [
+    {
+      "id": "coin",
+      "label": "Flip a coin",
+      "timeout_ms": 5000,
+      "command": "od -An -N2 -tu2 /dev/urandom | awk '{print ($1%2 ? \"Heads\" : \"Tails\")}'"
+    },
+    {
+      "id": "die",
+      "label": "Roll a die",
+      "timeout_ms": 5000,
+      "command": "od -An -N2 -tu2 /dev/urandom | awk '{split(\"⚀ ⚁ ⚂ ⚃ ⚄ ⚅\",f,\" \"); n=$1%6+1; print f[n] \"  \" n}'"
+    },
+    {
+      "id": "d20",
+      "label": "Roll a d20",
+      "timeout_ms": 5000,
+      "command": "od -An -N2 -tu2 /dev/urandom | awk '{print \"d20: \" $1%20+1}'"
+    },
+    {
+      "id": "magic",
+      "label": "Magic ball",
+      "timeout_ms": 5000,
+      "command": "od -An -N2 -tu2 /dev/urandom | awk '{split(\"It is certain|Without a doubt|Yes, definitely|Most likely|Outlook good|Signs point to yes|Ask again later|Cannot predict now|Concentrate and ask again|Better not tell you now|Do not count on it|My reply is no|Very doubtful|Outlook not so good\",a,\"|\"); print \"🎱 \" a[$1%14+1]}'"
+    },
+    {
+      "id": "password",
+      "label": "Strong password",
+      "timeout_ms": 5000,
+      "command": "head -c 32 /dev/urandom | base64 | tr -d '/+=\\n' | cut -c1-20"
+    }
+  ]
+}

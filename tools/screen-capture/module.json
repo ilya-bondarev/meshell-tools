@@ -1,0 +1,29 @@
+{
+  "id": "screen-capture",
+  "title": "Screen capture",
+  "description": "Screenshot or a 15-second screen recording saved to shared storage",
+  "permissions": [
+    "storage",
+    "screen"
+  ],
+  "actions": [
+    {
+      "id": "screenshot",
+      "label": "Screenshot",
+      "timeout_ms": 20000,
+      "command": "d=/sdcard/Pictures/MeShell; mkdir -p \"$d\" && f=\"$d/Screenshot_$(date +%Y%m%d_%H%M%S).png\" && screencap -p \"$f\" && echo \"Saved $f\""
+    },
+    {
+      "id": "record",
+      "label": "Record 15 seconds",
+      "timeout_ms": 45000,
+      "command": "d=/sdcard/Movies/MeShell; mkdir -p \"$d\" && f=\"$d/Screen_$(date +%Y%m%d_%H%M%S).mp4\" && screenrecord --time-limit 15 \"$f\" && echo \"Saved $f\""
+    },
+    {
+      "id": "recent",
+      "label": "Recent captures",
+      "timeout_ms": 10000,
+      "command": "ls -t /sdcard/Pictures/MeShell/* /sdcard/Movies/MeShell/* 2>/dev/null | head -n 10 || true"
+    }
+  ]
+}

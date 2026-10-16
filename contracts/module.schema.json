@@ -3,12 +3,21 @@
   "title": "MeShell module definition",
   "type": "object",
   "x-maxJsonCharacters": 128000,
+  "x-permissions": "permissions",
   "additionalProperties": false,
   "required": ["id", "title", "actions"],
   "properties": {
     "id": {"type": "string", "pattern": "^[a-z0-9_-]{1,40}$"},
     "title": {"type": "string", "minLength": 1},
     "description": {"type": "string"},
+    "permissions": {
+      "type": "array", "maxItems": 6, "uniqueItems": true,
+      "items": {"type": "string", "enum": ["network", "storage", "screen", "system", "secrets", "packages"]}
+    },
+    "packages": {
+      "type": "array", "maxItems": 16, "uniqueItems": true, "x-impliesPermission": "packages",
+      "items": {"type": "string", "pattern": "^[a-z0-9][a-z0-9+.-]{0,63}$"}
+    },
     "actions": {
       "type": "array", "minItems": 1, "maxItems": 24, "x-uniqueBy": "id",
       "items": {
@@ -16,11 +25,19 @@
         "properties": {
           "id": {"type": "string", "pattern": "^[a-z0-9_-]{1,40}$"},
           "label": {"type": "string"},
-          "command": {"type": "string", "minLength": 1},
+          "command": {
+            "type": "string", "minLength": 1,
+            "x-permissionPatterns": {
+              "network": "\\b(curl|wget|nc|ncat|ssh|scp|sftp|rsync|ping6?|telnet|ftp|aria2c|dig|nslookup|gh)\\b|\\bgit\\s+(clone|fetch|pull|push|ls-remote)\\b|\\b(https?|wss?|ftp)://",
+              "storage": "/sdcard\\b|/storage/|/mnt/(sdcard|media_rw)|\\$\\{?EXTERNAL_STORAGE\\b",
+              "screen": "\\b(screencap|screenrecord)\\b|\\buiautomator\\s+dump\\b",
+              "system": "\\bsettings\\s+(put|delete|reset)\\b|\\bpm\\s+(install|uninstall|disable|disable-user|enable|grant|revoke|clear|hide|unhide|suspend|unsuspend|trim-caches|set-[a-z-]+)\\b|\\bam\\s+(start|start-service|startservice|start-foreground-service|stop-service|force-stop|kill|kill-all|broadcast)\\b|\\b(cmd|svc)\\s+[a-z_]+|\\b(setprop|reboot|monkey|locksettings)\\b|\\binput\\s+(tap|swipe|text|keyevent|draganddrop|roll|press)\\b|\\bwm\\s+(size|density|overscan|reset)\\b|\\bappops\\s+(set|reset)\\b|\\bcontent\\s+(insert|update|delete)\\b"
+            }
+          },
           "cwd": {"type": "string", "pattern": "^/[^\\u0000]*$", "x-local": true},
           "timeout_ms": {"type": "integer", "minimum": 1000, "maximum": 900000},
           "env_secrets": {
-            "type": "object", "x-portableAliases": true,
+            "type": "object", "x-portableAliases": true, "x-impliesPermission": "secrets",
             "propertyNames": {"pattern": "^[A-Za-z_][A-Za-z0-9_]*$"},
             "additionalProperties": {"type": "string", "minLength": 1}
           }

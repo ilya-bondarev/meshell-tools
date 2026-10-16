@@ -1,0 +1,19 @@
+{
+  "id": "battery",
+  "title": "Battery",
+  "description": "Charge, status, health, temperature and voltage",
+  "actions": [
+    {
+      "id": "status",
+      "label": "Battery status",
+      "timeout_ms": 10000,
+      "command": "dumpsys battery | awk -F': ' '/^ +level:/{l=$2} /^ +temperature:/{t=$2/10} /^ +voltage:/{v=$2} /^ +health:/{h=$2} /^ +status:/{s=$2} /powered: true/{p=$1; sub(/^ +/,\"\",p); sub(/ powered/,\"\",p)} END{split(\"unknown charging discharging not-charging full\",S,\" \"); split(\"unknown good overheat dead over-voltage failure cold\",H,\" \"); printf \"Charge       %s%%\\nStatus       %s\\nPower        %s\\nHealth       %s\\nTemperature  %.1f °C\\n\", l, S[s], (p==\"\"?\"battery\":p), H[h], t; if(v>100) printf \"Voltage      %.2f V\\n\", v/1000; else if(v>0) printf \"Voltage      %s V\\n\", v}'"
+    },
+    {
+      "id": "details",
+      "label": "All battery fields",
+      "timeout_ms": 10000,
+      "command": "dumpsys battery"
+    }
+  ]
+}
